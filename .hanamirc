@@ -1,0 +1,3 @@
+project=monobank_expenses
+test=rspec
+template=erb

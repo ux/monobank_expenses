@@ -1,0 +1,2 @@
+module MonobankExpenses
+end
