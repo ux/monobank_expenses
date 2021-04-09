@@ -4,7 +4,10 @@ gem 'rake'
 gem 'hanami',       '~> 1.3'
 gem 'hanami-model', '~> 1.3'
 
-gem 'sqlite3'
+gem 'pg'
+gem 'faraday'
+gem 'multi_json'
+gem 'oj'
 
 group :development do
   # Code reloading
@@ -15,6 +18,7 @@ end
 
 group :test, :development do
   gem 'dotenv', '~> 2.4'
+  gem 'pry-byebug'
 end
 
 group :test do
@@ -23,5 +27,5 @@ group :test do
 end
 
 group :production do
-  # gem 'puma'
+  gem 'puma'
 end
