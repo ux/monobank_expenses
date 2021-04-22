@@ -1,4 +1,4 @@
-<h2>Sync user</h2>
+<%= html.h2 'New user' %>
 
 <%=
   form_for :user, routes.users_path do
@@ -14,7 +14,7 @@
     end
 
     div class: 'controls' do
-      submit 'Sync'
+      submit 'Add'
     end
   end
 %>

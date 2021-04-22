@@ -1,17 +1,17 @@
 module Web
   module Controllers
-    module Home
-      class Index
+    module Users
+      class Show
         include Web::Action
 
-        expose :users
+        expose :user
 
         def initialize(repository: UserRepository.new)
           @repository = repository
         end
 
         def call(params)
-          @users = @repository.all
+          @user = @repository.find_with_accounts(params[:id])
         end
       end
     end

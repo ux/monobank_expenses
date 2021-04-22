@@ -3,6 +3,8 @@ require 'hanami/interactor'
 class SyncUser
   include Hanami::Interactor
 
+  expose :user
+
   def initialize(monobank_class: Monobank::Client,
                  monobank_error: Monobank::Error,
                  users:          UserRepository.new,
@@ -14,7 +16,7 @@ class SyncUser
   end
 
   def call(user)
-    sync_user(retrieve_user(user.api_token))
+    @user = sync_user(retrieve_user(user.api_token))
   end
 
   private

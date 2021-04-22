@@ -1,0 +1,29 @@
+<%= html.h2 user.name %>
+
+<%=
+  form_for :user, routes.users_path do
+    hidden_field :api_token, value: user.api_token
+
+    div class: 'controls' do
+      submit 'Sync'
+    end
+  end
+%>
+
+<table>
+  <tr>
+    <th>IBAN</th>
+    <th>Type</th>
+    <th>Balance</th>
+    <th>Pan</th>
+  </tr>
+
+  <% user.accounts.each do |account| %>
+    <tr>
+      <td><%= account.iban %></td>
+      <td><%= account.type %></td>
+      <td><%= format_number (account.balance - account.credit_limit) / 100 %></td>
+      <td><%= account.masked_pan.join(', ') %></td>
+    </tr>
+  <% end %>
+</table>

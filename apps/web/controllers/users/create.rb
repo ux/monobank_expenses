@@ -25,7 +25,7 @@ module Web
 
           return handle_errors(result.errors) if result.failure?
 
-          redirect_to(routes.users_path)
+          redirect_to(routes.user_path(result.user.client_id))
         end
 
         private

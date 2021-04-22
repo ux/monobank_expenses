@@ -1,1 +1,9 @@
-<a href="<%= routes.new_user_path %>">Sync user</a>
+<%= link_to 'Add user', routes.new_user_path %>
+
+<ul>
+  <% users.each do |user| %>
+    <li>
+      <%= link_to user.name, routes.user_path(user.client_id) %>
+    </li>
+  <% end %>
+</ul>

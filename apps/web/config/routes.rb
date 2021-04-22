@@ -3,4 +3,4 @@
 
 get '/', to: 'home#index'
 
-resources :users, only: [:index, :new, :create, :show]
+resources :users, only: [:new, :create, :show]
