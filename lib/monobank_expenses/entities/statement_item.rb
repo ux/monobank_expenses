@@ -3,7 +3,7 @@ require_relative '../../types'
 class StatementItem < Hanami::Entity
   attributes do
     attribute :id,               Types::String
-    attribute :time,             ::Types::UnixTime
+    attribute :time,             ::Types::Time
     attribute :description,      Types::String
     attribute :mcc,              Types::Int
     attribute :original_mcc,     Types::Int

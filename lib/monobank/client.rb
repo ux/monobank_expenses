@@ -33,18 +33,26 @@ module Monobank
     private
 
     def handle_response(response)
-      parse_response(response).tap do |parsed_body|
-        raise ApiError.new(response.status, parsed_body) if response.status != 200
-      end
+      parsed_response = parse_response(response)
+
+      raise build_api_error(response, parsed_response) unless response.success?
+
+      parsed_response
     rescue MultiJson::ParseError => exception
       raise ParseError, exception, exception.backtrace
     end
 
-    def connection_options
-      {
-        url: 'https://api.monobank.ua',
-        headers: { 'X-Token' => token }
-      }
+    def parse_response(response)
+      MultiJson.load(response.body).deep_transform_keys { |key| key.underscore.to_sym }
+    end
+
+    def build_api_error(response, parsed_response)
+      error_class = case response.status
+                    when 403 then ForbiddenError
+                    else ApiError
+                    end
+
+      error_class.new(response.status, parsed_response)
     end
 
     def connection
@@ -53,8 +61,11 @@ module Monobank
       end
     end
 
-    def parse_response(response)
-      MultiJson.load(response.body).deep_transform_keys { |key| key.underscore.to_sym }
+    def connection_options
+      {
+        url: 'https://api.monobank.ua',
+        headers: { 'X-Token' => token }
+      }
     end
   end
 end

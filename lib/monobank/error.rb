@@ -20,4 +20,7 @@ module Monobank
       super(parsed_body[:error_description])
     end
   end
+
+  class ForbiddenError < ApiError
+  end
 end

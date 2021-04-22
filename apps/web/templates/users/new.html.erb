@@ -1,0 +1,20 @@
+<h2>Sync user</h2>
+
+<%=
+  form_for :user, routes.users_path do
+    if defined?(error_messages)
+      strong class: 'errors' do
+        error_messages.join(', ')
+      end
+    end
+
+    div class: 'input' do
+      label      :api_token
+      text_field :api_token
+    end
+
+    div class: 'controls' do
+      submit 'Sync'
+    end
+  end
+%>
