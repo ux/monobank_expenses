@@ -3,8 +3,8 @@ class UserRepository < Hanami::Repository
     has_many :accounts
   end
 
-  def sync(client_id, data, &block)
-    update(client_id, data)&.tap(&block) || assoc(:accounts).create(data)
+  def sync(user, &block)
+    update(user.client_id, user)&.tap(&block) || assoc(:accounts).create(user)
   end
 
   def find_with_accounts(client_id)

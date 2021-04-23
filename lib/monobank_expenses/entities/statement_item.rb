@@ -3,8 +3,10 @@ require_relative '../../types'
 class StatementItem < Hanami::Entity
   attributes do
     attribute :id,               Types::String
+    attribute :account_id,       Types::String
     attribute :time,             ::Types::Time
     attribute :description,      Types::String
+    attribute :comment,          Types::String
     attribute :mcc,              Types::Int
     attribute :original_mcc,     Types::Int
     attribute :edited_mcc,       Types::Int

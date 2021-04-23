@@ -3,7 +3,8 @@ class AccountRepository < Hanami::Repository
     belongs_to :user
   end
 
-  def sync(id, data)
-    update(id, data) || create(data)
+  def sync(user, account)
+    data = account.to_h.merge(client_id: user.client_id)
+    update(account.id, data) || create(data)
   end
 end

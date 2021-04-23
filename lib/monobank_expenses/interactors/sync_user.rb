@@ -33,8 +33,8 @@ class SyncUser
 
   def sync_user(user)
     @users.transaction do
-      @users.sync(user.client_id, user) do |_updated_user|
-        user.accounts.each { |account| @accounts.sync(account.id, account) }
+      @users.sync(user) do |_updated_user|
+        user.accounts.each { |account| @accounts.sync(user, account) }
       end
     end
   end

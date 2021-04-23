@@ -4,6 +4,7 @@ class Account < Hanami::Entity
 
   attributes do
     attribute :id,            Types::String
+    attribute :client_id,     Types::String
     attribute :currency_code, Types::Int
     attribute :cashback_type, Types::String.enum(*CASHBACK_TYPES)
     attribute :balance,       Types::Int
@@ -11,5 +12,9 @@ class Account < Hanami::Entity
     attribute :masked_pan,    Types::Collection(Types::String)
     attribute :type,          Types::String.enum(*ACCOUNT_TYPES)
     attribute :iban,          Types::String
+  end
+
+  def balance_without_credit
+    balance - credit_limit
   end
 end
