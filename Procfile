@@ -1,1 +1,1 @@
-web: bundle exec hanami server
+web: bundle exec hanami server --no-code-reloading --port=$PORT
