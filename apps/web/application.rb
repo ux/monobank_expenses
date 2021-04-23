@@ -1,5 +1,6 @@
 require 'hanami/helpers'
 require 'hanami/assets'
+require 'rack/auth/basic'
 
 module Web
   class Application < Hanami::Application
@@ -87,6 +88,10 @@ module Web
       # Configure Rack middleware for this application
       #
       # middleware.use Rack::Protection
+
+      middleware.use Rack::Auth::Basic, 'Restricted Area' do |username, password|
+        [username, password].join(':') == ENV['HTTP_CREDENTIALS']
+      end
 
       # Default format for the requests that don't specify an HTTP_ACCEPT header
       # Argument: A symbol representation of a mime type, defaults to :html

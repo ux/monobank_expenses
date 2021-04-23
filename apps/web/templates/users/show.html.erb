@@ -77,7 +77,7 @@
           <td><%= statement_item.comment %></td>
           <td>
             <%= mcc_info[statement_item.mcc].values.compact.join(' / ') %>
-            <sup><%= statement_item.edited_mcc || statement_item.mcc %></sup>
+            <sup>MCC: <%= statement_item.edited_mcc || statement_item.mcc %></sup>
           </td>
           <td><%= format_currency statement_item.amount %></td>
           <td><%= format_currency statement_item.commission_rate %></td>
