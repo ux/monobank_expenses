@@ -72,7 +72,7 @@
 
       <% statement_items.each do |statement_item| %>
         <tr>
-          <td><%= statement_item.time.strftime('%H:%M') %></td>
+          <td><%= format_time statement_item.time %></td>
           <td><%= statement_item.description %></td>
           <td><%= statement_item.comment %></td>
           <td>

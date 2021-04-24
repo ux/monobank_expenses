@@ -15,6 +15,10 @@ module Web
           memo
         end
       end
+
+      def format_time(time)
+        time.strftime('%H:%M')
+      end
     end
   end
 end
