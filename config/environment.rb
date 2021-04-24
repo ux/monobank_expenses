@@ -3,8 +3,10 @@ require 'hanami/setup'
 require 'hanami/model'
 require_relative '../lib/monobank_expenses'
 require_relative '../apps/web/application'
+require_relative '../apps/webhooks/application'
 
 Hanami.configure do
+  mount Webhooks::Application, at: '/' + ENV.fetch('WEBHOOKS_SECRET_TOKEN')
   mount Web::Application, at: '/'
 
   model do

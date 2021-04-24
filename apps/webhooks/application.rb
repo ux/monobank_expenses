@@ -1,8 +1,7 @@
 require 'hanami/helpers'
 require 'hanami/assets'
-require 'rack/auth/basic'
 
-module Web
+module Webhooks
   class Application < Hanami::Application
     configure do
       ##
@@ -20,9 +19,7 @@ module Web
       # When you add new directories, remember to add them here.
       #
       load_paths << [
-        'controllers',
-        'views',
-        'helpers'
+        'controllers'
       ]
 
       # Handle exceptions with HTTP statuses (true) or don't catch them (false).
@@ -49,6 +46,7 @@ module Web
       # Defaults to "localhost"
       #
       # host 'example.org'
+
       host 'monobank-expenses.herokuapp.com'
 
       # URI port used by the routing system to generate absolute URLs
@@ -84,15 +82,11 @@ module Web
       #
       # See: http://www.rubydoc.info/gems/rack/Rack/Session/Cookie
       #
-      # sessions :cookie, secret: ENV['WEB_SESSIONS_SECRET']
+      # sessions :cookie, secret: ENV['WEBHOOKS_SESSIONS_SECRET']
 
       # Configure Rack middleware for this application
       #
       # middleware.use Rack::Protection
-
-      middleware.use Rack::Auth::Basic, 'Restricted Area' do |username, password|
-        [username, password].join(':') == ENV.fetch('HTTP_CREDENTIALS')
-      end
 
       # Default format for the requests that don't specify an HTTP_ACCEPT header
       # Argument: A symbol representation of a mime type, defaults to :html
@@ -103,56 +97,6 @@ module Web
       # Argument: A symbol representation of a mime type, defaults to :html
       #
       # default_response_format :html
-
-      ##
-      # TEMPLATES
-      #
-
-      # The layout to be used by all views
-      #
-      layout :application # It will load Web::Views::ApplicationLayout
-
-      # The relative path to templates
-      #
-      templates 'templates'
-
-      ##
-      # ASSETS
-      #
-      assets do
-        # JavaScript compressor
-        #
-        # Supported engines:
-        #
-        #   * :builtin
-        #   * :uglifier
-        #   * :yui
-        #   * :closure
-        #
-        # See: https://guides.hanamirb.org/assets/compressors
-        #
-        # In order to skip JavaScript compression comment the following line
-        javascript_compressor :builtin
-
-        # Stylesheet compressor
-        #
-        # Supported engines:
-        #
-        #   * :builtin
-        #   * :yui
-        #   * :sass
-        #
-        # See: https://guides.hanamirb.org/assets/compressors
-        #
-        # In order to skip stylesheet compression comment the following line
-        stylesheet_compressor :builtin
-
-        # Specify sources for assets
-        #
-        sources << [
-          'assets'
-        ]
-      end
 
       ##
       # SECURITY
@@ -248,22 +192,13 @@ module Web
       # FRAMEWORKS
       #
 
-      # Configure the code that will yield each time Web::Action is included
+      # Configure the code that will yield each time Webhooks::Action is included
       # This is useful for sharing common functionality
       #
       # See: http://www.rubydoc.info/gems/hanami-controller#Configuration
       controller.prepare do
         # include MyAuthentication # included in all the actions
         # before :authenticate!    # run an authentication before callback
-      end
-
-      # Configure the code that will yield each time Web::View is included
-      # This is useful for sharing common functionality
-      #
-      # See: http://www.rubydoc.info/gems/hanami-view#Configuration
-      view.prepare do
-        include Hanami::Helpers
-        include Web::Assets::Helpers
       end
     end
 
@@ -290,6 +225,7 @@ module Web
       # scheme 'https'
       # host   'example.org'
       # port   443
+
       assets do
         # Don't compile static assets in production mode (eg. Sass, ES6)
         #
