@@ -21,7 +21,7 @@ module Web
         def call(params)
           return handle_errors(params.error_messages) unless params.valid?
 
-          result = @interactor.call(@user_class.new(params[:user]))
+          result = @interactor.call(@user_class.new(params[:user]), webhook_url: Webhooks.routes.monobank_url)
 
           return handle_errors(result.errors) if result.failure?
 

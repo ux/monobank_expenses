@@ -8,21 +8,24 @@ class SyncUser
   def initialize(monobank_class: Monobank::Client,
                  monobank_error: Monobank::Error,
                  users:          UserRepository.new,
-                 accounts:       AccountRepository.new)
+                 accounts:       AccountRepository.new,
+                 webhook_url:    Webhooks.routes.monobank_url)
     @monobank_class = monobank_class
     @monobank_error = monobank_error
     @users          = users
     @accounts       = accounts
   end
 
-  def call(user)
-    @user = sync_user(retrieve_user(user.api_token))
+  def call(user, webhook_url:)
+    @user = sync_user(retrieve_user_and_set_webhook(user.api_token, webhook_url))
   end
 
   private
 
-  def retrieve_user(api_token)
+  def retrieve_user_and_set_webhook(api_token, webhook_url)
     monobank = @monobank_class.new(api_token)
+
+    monobank.set_webhook(Webhooks.routes.monobank_url)
 
     user_attributes = monobank.client_info.merge(api_token: api_token)
 
