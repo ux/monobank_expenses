@@ -5,6 +5,7 @@ module Webhooks
         include Webhooks::Action
 
         def call(params)
+          Hanami.logger.debug(params.raw)
         end
       end
     end
