@@ -4,6 +4,8 @@ module Webhooks
       class Create
         include Webhooks::Action
 
+        accept :json
+
         def call(params)
           Hanami.logger.debug(params.raw)
         end

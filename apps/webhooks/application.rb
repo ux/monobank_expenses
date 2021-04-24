@@ -1,5 +1,7 @@
 require 'hanami/helpers'
 require 'hanami/assets'
+require 'hanami/middleware/body_parser'
+
 
 module Webhooks
   class Application < Hanami::Application
@@ -88,6 +90,8 @@ module Webhooks
       #
       # middleware.use Rack::Protection
 
+      middleware.use Hanami::Middleware::BodyParser, :json
+
       # Default format for the requests that don't specify an HTTP_ACCEPT header
       # Argument: A symbol representation of a mime type, defaults to :html
       #
@@ -96,7 +100,7 @@ module Webhooks
       # Default format for responses that don't consider the request format
       # Argument: A symbol representation of a mime type, defaults to :html
       #
-      # default_response_format :html
+      default_response_format :json
 
       ##
       # SECURITY
@@ -225,31 +229,6 @@ module Webhooks
       # scheme 'https'
       # host   'example.org'
       # port   443
-
-      assets do
-        # Don't compile static assets in production mode (eg. Sass, ES6)
-        #
-        # See: http://www.rubydoc.info/gems/hanami-assets#Configuration
-        compile false
-
-        # Use fingerprint file name for asset paths
-        #
-        # See: https://guides.hanamirb.org/assets/overview
-        fingerprint true
-
-        # Content Delivery Network (CDN)
-        #
-        # See: https://guides.hanamirb.org/assets/content-delivery-network
-        #
-        # scheme 'https'
-        # host   'cdn.example.org'
-        # port   443
-
-        # Subresource Integrity
-        #
-        # See: https://guides.hanamirb.org/assets/content-delivery-network/#subresource-integrity
-        subresource_integrity :sha256
-      end
     end
   end
 end
