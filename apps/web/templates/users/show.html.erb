@@ -2,6 +2,8 @@
 
 <%= html.h1 user.name %>
 
+<%= link_to 'Edit user', routes.edit_user_path(user.client_id) %>
+
 <%=
   form_for :user, routes.users_path do
     hidden_field :api_token, value: user.api_token

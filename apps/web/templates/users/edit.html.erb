@@ -1,0 +1,20 @@
+<%= html.h2 link_to(user.name, routes.user_path(user.client_id)) %>
+
+<%=
+  form_for :user, routes.user_path(user.client_id), method: :patch, values: { user: user } do
+    if defined?(error_messages)
+      strong class: 'errors' do
+        error_messages.join(', ')
+      end
+    end
+
+    div class: 'input' do
+      label     :phone_number
+      tel_field :phone_number
+    end
+
+    div class: 'controls' do
+      submit 'Update'
+    end
+  end
+%>
