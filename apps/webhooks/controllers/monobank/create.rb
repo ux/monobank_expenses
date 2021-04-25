@@ -9,12 +9,6 @@ module Webhooks
 
         accept :json
 
-        def initialize(accounts:        AccountRepository.new,
-                       statement_items: StatementItemRepository.new)
-          @accounts        = accounts
-          @statement_items = statement_items
-        end
-
         # {
         #   "type"=>"StatementItem",
         #   "data"=>{
@@ -36,17 +30,21 @@ module Webhooks
         #   }
         # }
 
-        def call(params)
-          return status 200, 'Unsupported type' if params[:type] != 'StatementItem'
+        def initialize(interactor: UpdateStatementItem.new)
+          @interactor = interactor
+        end
 
+        def call(params)
           data = params.to_h.deep_transform_keys { |key| key.to_s.underscore.to_sym }[:data]
 
-          statement_item = @statement_items.class.entity.new(data[:statement_item])
+          case params[:type]
+          when 'StatementItem'
+            @interactor.call(data[:account], data[:statement_item])
 
-          account = @accounts.update(data[:account], balance: statement_item.balance)
-          @statement_items.sync(account, statement_item)
-
-          status 200, 'OK'
+            status 200, 'OK'
+          else
+            status 200, 'OK - Unsupported update'
+          end
         end
       end
     end

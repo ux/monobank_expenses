@@ -6,9 +6,9 @@ module Web
 
         expose :user, :account, :mcc_info, :statement_items_by_date
 
-        def initialize(users: UserRepository.new,
+        def initialize(users:      UserRepository.new,
                        statements: StatementItemRepository.new,
-                       mcc_codes: MccCodeRepository.new)
+                       mcc_codes:  MccCodeRepository.new)
           @users      = users
           @statements = statements
           @mcc_codes  = mcc_codes
