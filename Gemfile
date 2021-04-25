@@ -11,6 +11,7 @@ gem 'faraday'
 gem 'multi_json'
 gem 'oj'
 gem 'tzinfo', '~> 1'
+gem 'telegram-bot-ruby'
 
 group :development do
   # Code reloading
