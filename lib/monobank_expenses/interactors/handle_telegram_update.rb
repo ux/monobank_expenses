@@ -41,7 +41,7 @@ class HandleTelegramUpdate
     user = @users.find_by_phone_number(message.contact.phone_number)
 
     reply_message = if user
-      @users.update(user.id, telegram_chat_id: message.chat.id)
+      @users.update(user.client_id, telegram_chat_id: message.chat.id)
 
       'Thank you! I will post updates once you will start spending money.'
     else
