@@ -10,6 +10,7 @@ gem 'pg'
 gem 'faraday'
 gem 'multi_json'
 gem 'oj'
+gem 'tzinfo', '~> 1'
 
 group :development do
   # Code reloading
