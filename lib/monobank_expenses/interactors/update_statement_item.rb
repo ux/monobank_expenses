@@ -15,7 +15,7 @@ class UpdateStatementItem
 
     @accounts.transaction do
       @statement_items.sync(account, statement_item)
-      @accounts.update(account.id, balance: @statement_items.last.balance)
+      @accounts.update(account.id, balance: @statement_items.last_for(account).balance)
     end
   end
 end
