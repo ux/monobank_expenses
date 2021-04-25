@@ -1,1 +1,1 @@
-Sequel.application_timezone = 'Europe/Kyiv'
+Sequel.application_timezone = :local
