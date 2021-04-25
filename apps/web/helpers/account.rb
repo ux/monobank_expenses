@@ -1,6 +1,6 @@
 module Web
   module Helpers
-    module Acccount
+    module Account
       def format_currency(amount)
         precision = amount.abs > 10_00 ? 0 : 2
         format_number(amount.to_f / 100, precision: precision)

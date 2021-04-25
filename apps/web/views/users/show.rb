@@ -5,7 +5,7 @@ module Web
     module Users
       class Show
         include Web::View
-        include Web::Helpers::Acccount
+        include Web::Helpers::Account
       end
     end
   end

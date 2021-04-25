@@ -5,7 +5,7 @@ module Web
     module Accounts
       class Show
         include Web::View
-        include Web::Helpers::Acccount
+        include Web::Helpers::Account
 
         template 'users/show'
       end
