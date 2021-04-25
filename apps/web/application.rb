@@ -43,7 +43,7 @@ module Web
       # URI scheme used by the routing system to generate absolute URLs
       # Defaults to "http"
       #
-      # scheme 'https'
+      scheme 'https'
 
       # URI host used by the routing system to generate absolute URLs
       # Defaults to "localhost"
@@ -57,7 +57,7 @@ module Web
       #
       # This should only be configured if app listens to non-standard ports
       #
-      port 80
+      port 443
 
       # Enable cookies
       # Argument: boolean to toggle the feature

@@ -6,6 +6,8 @@ module Webhooks
       class Create
         include Webhooks::Action
 
+        accept :json
+
         def call(params)
           Hanami.logger(params.raw)
           # # instantiate a client update object
