@@ -12,10 +12,10 @@ class PropagateStatementUpdate
     'repositories.statement_item_repository'
   ]
 
-  def perform(client_id, account_id, statement_item_id)
-    user           = user_repository.find(client_id)
-    account        = account_repository.find(account_id)
+  def perform(statement_item_id)
     statement_item = statement_item_repository.find(statement_item_id)
+    account        = account_repository.find(statement_item.account_id)
+    user           = user_repository.find(account.client_id)
 
     send_telegram_notification(user, account, statement_item) if user.telegram_chat_id
   end

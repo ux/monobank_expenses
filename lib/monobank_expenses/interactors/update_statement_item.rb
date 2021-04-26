@@ -17,6 +17,6 @@ class UpdateStatementItem
       account_repository.update(account.id, balance: statement_item_repository.last_for(account).balance)
     end
 
-    PropagateStatementUpdate.perform_async(account.client_id, account.id, statement_item.id)
+    PropagateStatementUpdate.perform_async(statement_item.id)
   end
 end
