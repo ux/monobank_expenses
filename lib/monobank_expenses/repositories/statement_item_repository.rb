@@ -17,7 +17,18 @@ class StatementItemRepository < Hanami::Repository
       .to_a
   end
 
-  def last_for(account)
-    statement_items.where(account_id: account.id).order { time.desc }.first
+  def latest_for_account(account)
+    statement_items
+      .where(account_id: account.id)
+      .order { time.desc }
+      .limit(1)
+      .first
+  end
+
+  def find_between(account, from, to)
+    statement_items
+      .where(account_id: account.id, time: from.to_time...to.to_time)
+      .order { time.desc }
+      .to_a
   end
 end

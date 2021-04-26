@@ -14,7 +14,10 @@ class UpdateStatementItem
 
     account_repository.transaction do
       statement_item_repository.sync(account, statement_item)
-      account_repository.update(account.id, balance: statement_item_repository.last_for(account).balance)
+
+      balance = statement_item_repository.latest_for_account(account).balance
+
+      account_repository.update(account.id, balance: balance)
     end
 
     PropagateStatementUpdate.perform_async(statement_item.id)

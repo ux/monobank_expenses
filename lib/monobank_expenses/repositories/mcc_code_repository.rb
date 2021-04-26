@@ -8,10 +8,11 @@ class MccCodeRepository < Hanami::Repository
     aggregate(:mcc_label, :category)
       .where(mcc: mccs)
       .map_to(MccCode)
+      .to_a
   end
 
   def create_empty_mccs(mccs)
-    new_mccs = mccs - mcc_codes.where(mcc: mccs).pluck(:mcc)
+    new_mccs = mccs - mcc_codes.where(mcc: mccs).select(:mcc).pluck(:mcc)
 
     return [] if new_mccs.empty?
 

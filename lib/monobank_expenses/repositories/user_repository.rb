@@ -12,6 +12,6 @@ class UserRepository < Hanami::Repository
   end
 
   def find_by_phone_number(phone_number)
-    users.where(phone_number: phone_number).first
+    users.where(phone_number: phone_number).limit(1).first
   end
 end
