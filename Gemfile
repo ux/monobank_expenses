@@ -13,6 +13,8 @@ gem 'oj'
 gem 'tzinfo', '~> 1'
 gem 'telegram-bot-ruby'
 gem 'sidekiq'
+gem 'dry-auto_inject'
+gem 'dry-container'
 
 group :development do
   # Code reloading
