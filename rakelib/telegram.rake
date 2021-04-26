@@ -1,7 +1,5 @@
 require 'telegram/bot'
-require_relative '../config/environment'
-
-Hanami.boot
+require_relative '../config/boot'
 
 namespace :telegram do
   telegram_client = Telegram::Bot::Client.new(ENV.fetch('TELEGRAM_TOKEN'), logger: Hanami.logger)

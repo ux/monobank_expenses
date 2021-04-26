@@ -27,10 +27,10 @@ class UpdateStatementItem
       ]
     end
 
-    deliver_update(updated_account, updated_statement_item)
+    propagate_update(updated_account, updated_statement_item)
   end
 
-  def deliver_update(account, statement_item)
+  def propagate_update(account, statement_item)
     user = @users.find(account.client_id)
 
     return unless user.telegram_chat_id

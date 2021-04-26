@@ -1,6 +1,7 @@
 SIDEKIQ_REDIS_CONFIGURATION = {
   url: ENV[ENV['REDIS_PROVIDER']],
-  ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE }
+  ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE },
+  network_timeout: 5
 }
 
 Sidekiq.configure_server do |config|
