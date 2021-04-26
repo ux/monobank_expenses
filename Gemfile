@@ -12,6 +12,7 @@ gem 'multi_json'
 gem 'oj'
 gem 'tzinfo', '~> 1'
 gem 'telegram-bot-ruby'
+gem 'sidekiq'
 
 group :development do
   # Code reloading
