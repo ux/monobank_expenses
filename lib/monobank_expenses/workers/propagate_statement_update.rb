@@ -29,6 +29,9 @@ class PropagateStatementUpdate
       chat_id: user.telegram_chat_id,
       text: message_text(user, account, statement_item)
     )
+  rescue Telegram::Bot::Exceptions::ResponseError
+    # Most likely telegram bot was disabled or removed, hence ignore this error
+    nil
   end
 
   def message_text(user, account, statement_item)
