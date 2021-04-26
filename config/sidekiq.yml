@@ -1,0 +1,7 @@
+---
+:max_retries: 11
+:concurrency: 5
+:timeout: 25
+
+:queues:
+  - default
