@@ -19,7 +19,9 @@ class PropagateStatementUpdate
     account        = account_repository.find(statement_item.account_id)
     user           = user_repository.find(account.client_id)
 
-    send_telegram_notification(user, account, statement_item) if user.telegram_chat_id
+    if user.telegram_chat_id && statement_item.created_at == statement_item.updated_at
+      send_telegram_notification(user, account, statement_item)
+    end
   end
 
   private

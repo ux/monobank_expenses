@@ -42,14 +42,12 @@ module Webhooks
       # URI scheme used by the routing system to generate absolute URLs
       # Defaults to "http"
       #
-      scheme 'https'
+      # scheme 'https'
 
       # URI host used by the routing system to generate absolute URLs
       # Defaults to "localhost"
       #
       # host 'example.org'
-
-      host 'monobank-expenses.herokuapp.com'
 
       # URI port used by the routing system to generate absolute URLs
       # Argument: An object coercible to integer, defaults to 80 if the scheme
@@ -57,7 +55,7 @@ module Webhooks
       #
       # This should only be configured if app listens to non-standard ports
       #
-      port 443
+      # port 443
 
       # Enable cookies
       # Argument: boolean to toggle the feature
@@ -226,9 +224,9 @@ module Webhooks
     # PRODUCTION
     #
     configure :production do
-      # scheme 'https'
-      # host   'example.org'
-      # port   443
+      scheme 'https'
+      host 'monobank-expenses.herokuapp.com'
+      port 443
     end
   end
 end

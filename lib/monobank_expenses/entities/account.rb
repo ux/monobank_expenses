@@ -12,6 +12,8 @@ class Account < Hanami::Entity
     attribute :masked_pan,    Types::Collection(Types::String)
     attribute :type,          Types::String.enum(*ACCOUNT_TYPES)
     attribute :iban,          Types::String
+    attribute :created_at,    Types::Time
+    attribute :updated_at,    Types::Time
   end
 
   def balance_without_credit

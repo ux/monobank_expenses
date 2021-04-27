@@ -20,5 +20,7 @@ class StatementItem < Hanami::Entity
     attribute :receipt_id,       Types::String
     attribute :counter_edrpou,   Types::String
     attribute :counter_iban,     Types::String
+    attribute :created_at,       Types::Time
+    attribute :updated_at,       Types::Time
   end
 end
