@@ -1,0 +1,46 @@
+<%= link_to '<- Home', '/' %>
+
+<%= html.h1 'Mortgage calculator' %>
+
+<%=
+  form_for :mortgage, routes.mortgage_path, method: :get, values: { mortgage: mortgage } do
+    div class: 'input' do
+      label        :start_amount
+      number_field :start_amount
+    end
+
+    div class: 'input' do
+      label        :monthly_payment
+      number_field :monthly_payment
+    end
+
+    div class: 'input' do
+      label        :percent
+      number_field :percent
+    end
+
+    div class: 'controls' do
+      submit 'OK'
+    end
+  end
+%>
+
+<hr>
+
+<table>
+  <tr>
+    <th>Year / Month</th>
+    <% 1.upto(12) do |month_index| %>
+      <th><%= month_index %></th>
+    <% end %>
+  </tr>
+
+  <% payments_by_year.each.with_index do |payments, year_index| %>
+    <tr>
+      <th><%= year_index + 1 %></th>
+      <% payments.each do |payment_amount| %>
+        <td><%= format_number payment_amount, precision: 0 %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
