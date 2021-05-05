@@ -19,7 +19,7 @@ class PropagateStatementUpdate
     account        = account_repository.find(statement_item.account_id)
     user           = user_repository.find(account.client_id)
 
-    if user.telegram_chat_id && statement_item.created_at == statement_item.updated_at
+    if user.telegram_chat_id && statement_item.was_created?
       send_telegram_notification(user, account, statement_item)
     end
   end
@@ -38,7 +38,7 @@ class PropagateStatementUpdate
 
   def message_text(user, account, statement_item)
     balance = account.balance_without_credit
-    balance_per_day = balance.to_f / days_left_before_new_billing_period
+    balance_per_day = balance.to_f / days_left_before_new_billing_period(balance)
     spent_today = amount_spent_today(account)
 
     <<~MESSAGE
@@ -61,16 +61,13 @@ class PropagateStatementUpdate
     statement_item_repository.find_between(account, today, today + 1).sum(&:amount)
   end
 
-  def start_of_billing_period
-    Date.new(today.year, today.month + (today.day < BILLING_DAY ? -1 : 0), BILLING_DAY)
+  def end_of_billing_period(balance)
+    is_this_month = today.day < BILLING_DAY && balance < 15_000_00
+    Date.new(today.year, today.month + (is_this_month ? 0 : 1), BILLING_DAY)
   end
 
-  def end_of_billing_period
-    start_of_billing_period >> 1
-  end
-
-  def days_left_before_new_billing_period
-    (end_of_billing_period - today).to_i
+  def days_left_before_new_billing_period(balance)
+    (end_of_billing_period(balance) - today).to_i
   end
 
   def today

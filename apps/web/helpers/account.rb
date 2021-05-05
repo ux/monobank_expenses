@@ -3,7 +3,7 @@ module Web
     module Account
       def format_currency(amount)
         precision = amount.abs > 10_00 ? 0 : 2
-        format_number(amount.to_f / 100, precision: precision)
+        format_number(amount / 100.0, precision: precision)
       end
 
       def calculate_statements_stats(statement_items)

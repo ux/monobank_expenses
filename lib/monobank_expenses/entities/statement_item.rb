@@ -23,4 +23,8 @@ class StatementItem < Hanami::Entity
     attribute :created_at,       Types::Time
     attribute :updated_at,       Types::Time
   end
+
+  def was_created?
+    updated_at == created_at
+  end
 end
