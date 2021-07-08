@@ -37,7 +37,7 @@ class PropagateStatementUpdate
   end
 
   def message_text(user, account, statement_item)
-    balance = account.balance_without_credit
+    balance = account.corrected_balance_without_credit
     balance_per_day = balance.to_f / days_left_before_new_billing_period(balance)
     spent_today = amount_spent_today(account)
 

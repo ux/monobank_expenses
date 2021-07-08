@@ -26,14 +26,14 @@
     <tr>
       <td><%= link_to account.iban, routes.user_account_path(user.client_id, account.id) %></td>
       <td><%= account.type %></td>
-      <td><%= format_currency account.balance_without_credit %></td>
+      <td><%= format_currency account.corrected_balance_without_credit %></td>
       <td><%= account.masked_pan.join(', ') %></td>
     </tr>
   <% end %>
 </table>
 
 <% if defined?(account) %>
-  <%= html.h2 "#{account.type}: #{format_currency account.balance_without_credit}" %>
+  <%= html.h2 "#{account.type}: #{format_currency account.corrected_balance_without_credit}" %>
 
   <%=
     form_for :user, routes.user_account_path(user.client_id, account.id), method: :patch do
