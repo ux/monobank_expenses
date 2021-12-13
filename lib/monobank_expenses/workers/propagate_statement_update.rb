@@ -63,7 +63,11 @@ class PropagateStatementUpdate
 
   def end_of_billing_period(balance)
     is_this_month = today.day < BILLING_DAY && balance < 15_000_00
-    Date.new(today.year, today.month + (is_this_month ? 0 : 1), BILLING_DAY)
+
+    year, month = [today.year, today.month]
+    year, month = month < 12 ? [year, month + 1] : [year + 1, 1] unless is_this_month
+
+    Date.new(year, month, BILLING_DAY)
   end
 
   def days_left_before_new_billing_period(balance)
